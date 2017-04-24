@@ -11,6 +11,7 @@ export default class EmployeeSearch extends BaseComponent {
   @tracked employees;
   @tracked query = new Query();
   @tracked currentPage = 1;
+  @tracked totalCount = 0;
 
   constructor(options) {
     super(options);
@@ -19,7 +20,7 @@ export default class EmployeeSearch extends BaseComponent {
 
   @tracked('currentPage', 'totalCount')
   get hasNextPage() {
-    return this.currentPage >= 1;
+    return (this.currentPage * 20) < this.totalCount;
   }
 
   @tracked('currentPage', 'totalCount')
@@ -40,6 +41,7 @@ export default class EmployeeSearch extends BaseComponent {
 
     let scope = Employee
       .includes({ current_position: 'department' })
+      .stats({ total: 'count' })
       .page(this.currentPage)
       .per(5);
 
@@ -56,6 +58,7 @@ export default class EmployeeSearch extends BaseComponent {
 
     scope.all().then((response) => {
       this.employees = response.data;
+      this.totalCount = response.meta.stats.total.count;
     });
   }
 };

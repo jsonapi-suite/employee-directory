@@ -5,7 +5,7 @@
 
   <div class='search-controls'>
     <form onSubmit={{action search}}>
-      <div class="col-md-8">
+      <div class="col-md-6">
         <div class='form-group'>
           <input type='search' class='form-control' placeholder="First Name" value={{query.firstNamePrefix}} oninput={{action updateInput query 'firstNamePrefix'}} />
         </div>
@@ -13,12 +13,14 @@
           <input type='search' class='form-control' placeholder="Last Name" value={{query.lastNamePrefix}} oninput={{action updateInput query 'lastNamePrefix'}} />
         </div>
       </div>
-      <div class="col-md-4">
+      <div class="col-md-6">
         <button class="btn btn-lg btn-primary pull-right" type="submit">Search</button>
 
         <p class='pull-right'>
+          Total: {{totalCount}}
+
           {{#if hasPrevPage}}
-            <a onclick={{action paginate true}}>Prev &laquo;</a>
+            <a onclick={{action paginate true}}>&laquo; Prev</a>
           {{/if}}
 
           {{#if hasNextPage}}
