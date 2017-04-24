@@ -10,9 +10,28 @@ class Query {
 export default class EmployeeSearch extends BaseComponent {
   @tracked employees;
   @tracked query = new Query();
+  @tracked currentPage = 1;
 
   constructor(options) {
     super(options);
+    this.search();
+  }
+
+  @tracked('currentPage', 'totalCount')
+  get hasNextPage() {
+    return this.currentPage >= 1;
+  }
+
+  @tracked('currentPage', 'totalCount')
+  get hasPrevPage() {
+    return this.currentPage !== 1
+  }
+
+  paginate(e, back?) {
+    let count = 1;
+    if (back) count = -1;
+
+    this.currentPage = this.currentPage + count;
     this.search();
   }
 
@@ -21,6 +40,7 @@ export default class EmployeeSearch extends BaseComponent {
 
     let scope = Employee
       .includes({ current_position: 'department' })
+      .page(this.currentPage)
       .per(5);
 
     if (this.query.firstNamePrefix) {

@@ -15,6 +15,16 @@
       </div>
       <div class="col-md-4">
         <button class="btn btn-lg btn-primary pull-right" type="submit">Search</button>
+
+        <p class='pull-right'>
+          {{#if hasPrevPage}}
+            <a onclick={{action paginate true}}>Prev &laquo;</a>
+          {{/if}}
+
+          {{#if hasNextPage}}
+            <a onclick={{action paginate}}>Next &raquo;</a>
+          {{/if}}
+        </p>
       </div>
     </form>
   </div>
