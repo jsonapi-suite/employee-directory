@@ -1,0 +1,30 @@
+<div class='card search'>
+  <h1>
+    Employee Directory
+  </h1>
+
+  <div class='search-controls'>
+  </div>
+
+  <table class='table'>
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Age</th>
+        <th>Title</th>
+        <th>Department</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      {{#each employees key="@index" as |employee|}}
+        <tr>
+          <td>{{employee.fullName}}</td>
+          <td>{{employee.age}}</td>
+          <td>{{employee.currentPosition.title}}</td>
+          <td>{{employee.currentPosition.department.name}}</td>
+        </tr>
+      {{/each}}
+    </tbody>
+  </table>
+</div>
