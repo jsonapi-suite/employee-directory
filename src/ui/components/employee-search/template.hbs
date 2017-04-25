@@ -34,10 +34,18 @@
   <table class='table'>
     <thead>
       <tr>
-        <th>Name</th>
-        <th>Age</th>
-        <th>Title</th>
-        <th>Department</th>
+        <th>
+          <a onclick={{action doSort 'name'}}>Name</a>
+        </th>
+        <th>
+          <a onclick={{action doSort 'age'}}>Age</a>
+        </th>
+        <th>
+          <a onclick={{action doSort 'title'}}>Title</a>
+        </th>
+        <th>
+          <a onclick={{action doSort 'department_name'}}>Department</a>
+        </th>
       </tr>
     </thead>
 

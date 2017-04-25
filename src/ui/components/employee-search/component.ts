@@ -12,6 +12,7 @@ export default class EmployeeSearch extends BaseComponent {
   @tracked query = new Query();
   @tracked currentPage = 1;
   @tracked totalCount = 0;
+  @tracked sort = { created_at: 'desc' };
 
   constructor(options) {
     super(options);
@@ -36,11 +37,21 @@ export default class EmployeeSearch extends BaseComponent {
     this.search();
   }
 
+  doSort(attribute) {
+    if (this.sort[attribute] && this.sort[attribute] == 'desc') {
+      this.sort = {[attribute]: 'asc'}
+    } else {
+      this.sort = {[attribute]: 'desc'}
+    }
+    this.search();
+  }
+
   search(e?) {
     if (e) e.preventDefault();
 
     let scope = Employee
       .includes({ current_position: 'department' })
+      .order(this.sort)
       .stats({ total: 'count' })
       .page(this.currentPage)
       .per(5);
