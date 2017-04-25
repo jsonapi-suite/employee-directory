@@ -5,17 +5,17 @@
     <div class="row">
       <div class="col-md-4">
         <div class="form-group">
-          <input type="text" class="form-control" placeholder="First Name" value={{employee.firstName}} oninput={{action updateInput employee 'firstName'}} />
+          <input type="text" class="form-control {{has-error employee 'first_name' 'has-error'}}" placeholder="First Name" value={{employee.firstName}} oninput={{action updateInput employee 'firstName'}} />
         </div>
       </div>
       <div class="col-md-3">
         <div class="form-group">
-          <input type="text" class="form-control" placeholder="Age" value={{employee.age}} oninput={{action updateInput employee 'age'}} />
+          <input type="text" class="form-control {{has-error employee 'age' 'has-error'}}" placeholder="Age" value={{employee.age}} oninput={{action updateInput employee 'age'}} />
         </div>
       </div>
       <div class="col-md-5">
         <div class="form-group">
-          <input type="text" class="form-control" placeholder="Last Name" value={{employee.lastName}} oninput={{action updateInput employee 'lastName'}} />
+          <input type="text" class="form-control {{has-error employee 'last_name' 'has-error'}}" placeholder="Last Name" value={{employee.lastName}} oninput={{action updateInput employee 'lastName'}} />
         </div>
       </div>
     </div>
@@ -26,7 +26,8 @@
           <div class="row position">
             <div class="col-md-4">
               <div class="form-group">
-                <input type="text" class="form-control" placeholder="Title" value={{position.title}} oninput={{action updateInput position 'title'}} />
+                <input type="text" class="form-control {{has-error position 'title' 'has-error'}}" placeholder="Title" value={{position.title}} oninput={{action updateInput position 'title'}} />
+                <span class='error'>{{err position 'title'}}</span>
               </div>
             </div>
             <div class="col-md-5">

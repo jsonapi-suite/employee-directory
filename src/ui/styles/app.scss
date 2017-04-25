@@ -62,6 +62,10 @@ select {
     .error {
       color: lighten(red, 7%);
     }
+
+    .has-error {
+      border-color: lighten(red, 7%);
+    }
   }
 
   .btn-add {
