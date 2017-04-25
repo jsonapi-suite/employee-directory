@@ -22,26 +22,31 @@
 
     <div class='positions'>
       {{#each employee.positions key="@index" as |position|}}
-        <div class="row position">
-          <div class="col-md-4">
-            <div class="form-group">
-              <input type="text" class="form-control" placeholder="Title" value={{position.title}} oninput={{action updateInput position 'title'}} />
+        {{#unless position.isDestroyed}}
+          <div class="row position">
+            <div class="col-md-4">
+              <div class="form-group">
+                <input type="text" class="form-control" placeholder="Title" value={{position.title}} oninput={{action updateInput position 'title'}} />
+              </div>
+            </div>
+            <div class="col-md-5">
+              <div class="form-group">
+                <select onchange={{action changeDepartment position}}>
+                  <option value="" disabled selected>Department</option>
+                  {{#each departments key="@index" as |d|}}
+                    <option selected={{eq position.department.id d.id}} value={{d.id}}>{{d.name}}</option>
+                  {{/each}}
+                </select>
+              </div>
+            </div>
+            <div class="col-md-1">
+              <button type="button" class="btn-add btn btn-default btn-xs" onclick={{action removePosition position}}>x</button>
+            </div>
+            <div class="col-md-1">
+              <button type="button" class="btn-add btn btn-default btn-xs" onclick={{action addPosition}}>+</button>
             </div>
           </div>
-          <div class="col-md-5">
-            <div class="form-group">
-              <select onchange={{action changeDepartment position}}>
-                <option value="" disabled selected>Department</option>
-                {{#each departments key="@index" as |d|}}
-                  <option selected={{eq position.department.id d.id}} value={{d.id}}>{{d.name}}</option>
-                {{/each}}
-              </select>
-            </div>
-          </div>
-          <div class="col-md-1">
-            <button type="button" class="btn-add btn btn-default btn-xs" onclick={{action addPosition}}>+</button>
-          </div>
-        </div>
+        {{/unless}}
       {{/each}}
     </div>
 

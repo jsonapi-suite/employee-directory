@@ -18,8 +18,26 @@ export default class EmployeeForm extends BaseComponent {
   }
 
   addPosition() {
-    let historicalIndex = this.employee.positions.length + 1;
-    this.employee.positions.push(new Position({ historicalIndex }));
+    this.employee.positions.push(new Position());
+    this.recalculateHistoricalIndices();
+    this.employee = this.employee;
+  }
+
+  recalculateHistoricalIndices() {
+    let positions = this.employee.positions.filter((p) => {
+      return !p.isMarkedForDestruction();
+    });
+
+    positions.forEach((p, i) => {
+      p.historicalIndex = i+1;
+    });
+
+    this.employee = this.employee;
+  }
+
+  removePosition(position) {
+    position.isMarkedForDestruction(true);
+    this.recalculateHistoricalIndices();
     this.employee = this.employee;
   }
 
