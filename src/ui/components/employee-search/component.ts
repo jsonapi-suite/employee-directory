@@ -16,7 +16,12 @@ export default class EmployeeSearch extends BaseComponent {
 
   constructor(options) {
     super(options);
+    this.args.context.searchComponent = this;
     this.search();
+  }
+
+  selectEmployee(employee) {
+    this.args.context.formComponent.loadEmployee(employee);
   }
 
   @tracked('currentPage', 'totalCount')

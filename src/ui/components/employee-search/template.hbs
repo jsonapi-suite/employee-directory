@@ -52,7 +52,11 @@
     <tbody>
       {{#each employees key="@index" as |employee|}}
         <tr>
-          <td>{{employee.fullName}}</td>
+          <td>
+            <a onclick={{action selectEmployee employee}}>
+              {{employee.fullName}}
+            </a>
+          </td>
           <td>{{employee.age}}</td>
           <td>{{employee.currentPosition.title}}</td>
           <td>{{employee.currentPosition.department.name}}</td>

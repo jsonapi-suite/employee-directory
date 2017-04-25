@@ -5,6 +5,17 @@ import { Employee, Position, Department } from '../models';
 export default class EmployeeForm extends BaseComponent {
   @tracked employee: Employee;
   @tracked departments: Array<Department>;
+  @tracked isUpdating: boolean = false;
+
+  loadEmployee(employee) {
+    Employee.includes({ positions: 'department' }).find(employee.id).then((response) => {
+      this.isUpdating = true;
+      this.employee = response.data;
+      if (this.employee.positions.length === 0) {
+        this.addPosition();
+      }
+    });
+  }
 
   addPosition() {
     let historicalIndex = this.employee.positions.length + 1;
@@ -28,6 +39,7 @@ export default class EmployeeForm extends BaseComponent {
 
   constructor(options) {
     super(options);
+    this.args.context.formComponent = this;
     this.fetchDepartments();
     this.reset();
   }
@@ -37,11 +49,15 @@ export default class EmployeeForm extends BaseComponent {
 
     this.employee.save({ with: { positions: 'department' }}).then((success) => {
       this.employee = this.employee;
-      if (success) this.reset();
+      if (success) {
+        this.args.context.searchComponent.search();
+        this.reset();
+      }
     });
   }
 
   reset() {
+    this.isUpdating = false;
     let position = new Position({ historicalIndex: 1 });
     this.employee = new Employee({ positions: [position] });
   }
