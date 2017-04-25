@@ -1,0 +1,50 @@
+<div class="card form clearfix">
+  <h1>Create New Employee</h1>
+
+  <form onSubmit={{action submit}}>
+    <div class="row">
+      <div class="col-md-4">
+        <div class="form-group">
+          <input type="text" class="form-control" placeholder="First Name" value={{employee.firstName}} oninput={{action updateInput employee 'firstName'}} />
+        </div>
+      </div>
+      <div class="col-md-3">
+        <div class="form-group">
+          <input type="text" class="form-control" placeholder="Age" value={{employee.age}} oninput={{action updateInput employee 'age'}} />
+        </div>
+      </div>
+      <div class="col-md-5">
+        <div class="form-group">
+          <input type="text" class="form-control" placeholder="Last Name" value={{employee.lastName}} oninput={{action updateInput employee 'lastName'}} />
+        </div>
+      </div>
+    </div>
+
+    <div class='positions'>
+      {{#each employee.positions key="@index" as |position|}}
+        <div class="row position">
+          <div class="col-md-4">
+            <div class="form-group">
+              <input type="text" class="form-control" placeholder="Title" value={{position.title}} oninput={{action updateInput position 'title'}} />
+            </div>
+          </div>
+          <div class="col-md-5">
+            <div class="form-group">
+              <select onchange={{action changeDepartment position}}>
+                <option value="" disabled selected>Department</option>
+                {{#each departments key="@index" as |d|}}
+                  <option selected={{eq position.department.id d.id}} value={{d.id}}>{{d.name}}</option>
+                {{/each}}
+              </select>
+            </div>
+          </div>
+          <div class="col-md-1">
+            <button type="button" class="btn-add btn btn-default btn-xs" onclick={{action addPosition}}>+</button>
+          </div>
+        </div>
+      {{/each}}
+    </div>
+
+    <button type="submit" class="pull-right btn btn-primary">Submit</button>
+  </form>
+</div>

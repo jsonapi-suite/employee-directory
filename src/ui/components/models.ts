@@ -39,6 +39,8 @@ export class Position extends ApplicationRecord {
 
   @trackedAttr
   title = attr();
+  @trackedAttr
+  historicalIndex = attr();
 
   @trackedAttr
   department = belongsTo('departments');
